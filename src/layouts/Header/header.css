@@ -1,0 +1,16 @@
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    background-color: #fff;
+    box-shadow: 6px 0px 6px grey;
+  }
+  
+  .main-nav-logo {
+    display: flex;
+    font-size: 24px;
+    color: black;
+    align-items: center;
+    text-decoration: none;
+  }
