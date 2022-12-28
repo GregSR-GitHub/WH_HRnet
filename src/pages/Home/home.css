@@ -1,3 +1,7 @@
+.main{
+    position: relative;
+}
+
 .title {
     display: flex;
     align-items: center;
@@ -19,7 +23,7 @@
     align-items: flex-start;
     justify-content: center;
     background-color: white;
-    box-shadow: 1px 0px 10px grey;
+    box-shadow: 1px 0px 10px rgba(0, 0, 0, .4);
     padding: 10px 20px;
     margin: 10px;
     width: 100%;
@@ -28,13 +32,22 @@
     border-radius: 15px;
 }
 
+.create-employee-input {
+    width: 100%;
+    height: 30px;
+}
+
 label {
     display: block;
     margin-top: 1rem;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .address {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #f5f5f5;
     margin-top: 10px;
     width: 100%;
     border-radius: 10px;
@@ -50,13 +63,45 @@ h2{
     font-size: 30px;
 }
 
-.employee-list-button{
-    color: #596e07;
-    display: block;
-    border: 2px solid;
-    border-radius: 5px;
+.employee-list-submit{
+    width: 100%;
     padding: 5px;
     margin: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.modal{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    box-shadow: 1px 0px 10px rgba(0, 0, 0, .4);
+    padding: 10px 20px;
+    margin: 10px;
+    width: 50%;
+    min-width: 200px;
+    border-radius: 15px;
+}
+
+.close-modal{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    top: -10px;
+    right:-5px;
+    color: black;
+    background-color: #f5f5f5;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .5);
+    border-radius: 12px;
     text-decoration: none;
     font-weight: bold;
 }

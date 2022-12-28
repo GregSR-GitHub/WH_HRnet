@@ -7,15 +7,15 @@
 import { Link } from 'react-router-dom'
 
 
-  function Home() {
+  function EmployeeList() {
 
     return (
         <main>
         <div className="container">
-            <Link to="/"  end>Home</Link>
+            <Link  className="link-button" to="/">Home</Link>
         </div>
         </main>
     );
  }
  
- export default Home;
+ export default EmployeeList;
