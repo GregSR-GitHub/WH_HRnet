@@ -1,4 +1,6 @@
 import * as React from 'react'
+import Datas from '../../datas/employees.json'
+import { useSelector } from "react-redux";
 import './table.css'
 
 import {
@@ -6,175 +8,11 @@ import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  getFilteredRowModel,
+  getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-
-
-const defaultData  = [
-    { 
-        firstName: "Tony", 
-        lastName: "Stark", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Engineering", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-    { 
-        firstName: "Steve", 
-        lastName: "Roger", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Human Resources", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-    { 
-        firstName: "Peter", 
-        lastName: "Parker", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Engineering", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-    { 
-        firstName: "Thor", 
-        lastName: "Hodinson", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Engineering", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-    { 
-        firstName: "Natasha", 
-        lastName: "Romanoff", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Legal", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },    { 
-        firstName: "Tony", 
-        lastName: "Stark", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Engineering", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-    { 
-        firstName: "Steve", 
-        lastName: "Roger", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Human Resources", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-    { 
-        firstName: "Peter", 
-        lastName: "Parker", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Engineering", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-    { 
-        firstName: "Thor", 
-        lastName: "Hodinson", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Engineering", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-    { 
-        firstName: "Natasha", 
-        lastName: "Romanoff", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Legal", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },    { 
-        firstName: "Tony", 
-        lastName: "Stark", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Engineering", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-    { 
-        firstName: "Steve", 
-        lastName: "Roger", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Human Resources", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-    { 
-        firstName: "Peter", 
-        lastName: "Parker", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Engineering", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-    { 
-        firstName: "Thor", 
-        lastName: "Hodinson", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Engineering", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-    { 
-        firstName: "Natasha", 
-        lastName: "Romanoff", 
-        dateOfBirth: "2001-03-21", 
-        startDate: "2022-12-28", 
-        department: "Legal", 
-        street: "5th Street", 
-        city: "Manathan", 
-        state: "NY", 
-        zipCode: "35000" 
-    },
-]
+// const defaultData  = Datas
 
 const columnHelper = createColumnHelper()
 
@@ -223,13 +61,21 @@ const columns = [
 ]
 
 function Table() {
-     const [data, setData] = React.useState(() => [...defaultData])
+    const defaultData = useSelector((state) => state.employeeList);
+    const [data, setData] = React.useState(() => [...defaultData])
+    const [globalFilter, setGlobalFilter] = React.useState('')
 
   const table = useReactTable({
     data,
     columns,
+    state: {
+        globalFilter
+      },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
   })
 
   return (
@@ -249,7 +95,16 @@ function Table() {
                     ))}
                 </select> entries
             </span>
-            <span>Search</span>
+            <span>
+            <div>
+        <input
+          value={globalFilter}
+          onChange={(e) => setGlobalFilter(String(e.target.value))}
+          className="p-2 font-lg shadow border border-block"
+          placeholder="Search all columns..."
+        />
+      </div>
+            </span>
         </div>
       <table>
         <thead>
@@ -259,9 +114,24 @@ function Table() {
                 <th key={header.id}>
                   {header.isPlaceholder
                     ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
+                    : (
+                        <div
+                          {...{
+                            className: header.column.getCanSort()
+                              ? 'cursor-pointer select-none employee-table-header'
+                              : ' ',
+                            onClick: header.column.getToggleSortingHandler(),
+                          }}
+                        >
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                          {{
+                            asc: ' 🔼',
+                            desc: ' 🔽',
+                          }[header.column.getIsSorted()] ?? ' ↕️'}
+                        </div>
                       )}
                 </th>
               ))}
@@ -322,7 +192,7 @@ function Table() {
             </span>
         </div>
       </div>
-      <div>Showing {table.getRowModel().rows.length} entries</div>
+      <div>Showing {table.getRowModel().rows.length} of {data.length} entries</div>
     </div>
   )
 }

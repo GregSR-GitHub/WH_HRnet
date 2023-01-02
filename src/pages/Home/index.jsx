@@ -6,17 +6,22 @@
 import './home.css';
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from "react-redux";
 import saveEmployee from '../../utils/saveEmployee.js';
+import Modal from '../../components/Modal';
 import Datas from '../../datas/states.json'
+import { updateEmployeeList } from '../../store/store';
 
 
   function Home() {
     const [modalOn, setModalOn] = useState(false);
+    const dispatch = useDispatch();
     async function handleSubmit(e) {   
         e.preventDefault();
-        saveEmployee();
+        const newEmployee = await saveEmployee();
+        console.log(newEmployee)
+        dispatch(updateEmployeeList(newEmployee));
         setModalOn(true);
-        console.log(modalOn);
         }
 
     return (
@@ -26,12 +31,12 @@ import Datas from '../../datas/states.json'
                 <Link to="/employee-list" className="link-button">View Current Employees</Link>
             </div>
             <h2>Create Employee</h2>
-            <form action="#" id="create-employee" className="create-employee"  onSubmit={handleSubmit}>
+            <form action="#" id="create-employee" className="create-employee" onSubmit={handleSubmit}>
                 <label htmlFor="first-name">First Name</label>
-                <input type="text" id="first-name" className="create-employee-input"/>
+                <input type="text" id="first-name"  name="first-name" className="create-employee-input"/>
 
                 <label htmlFor="last-name">Last Name</label>
-                <input type="text" id="last-name"  className="create-employee-input"/>
+                <input type="text" id="last-name" name="last-name"  className="create-employee-input"/>
 
                 <label htmlFor="date-of-birth">Date of Birth</label>
                 <input id="date-of-birth" type="date"  className="create-employee-input"/>
@@ -71,12 +76,7 @@ import Datas from '../../datas/states.json'
             </form>
 
         </div>
-        {modalOn?
-        <div id="confirmation" className="modal">
-            <Link to="/"  className="close-modal" onClick={(e) => setModalOn(false)}>X</Link>
-            <span>Employee Created!</span>
-        </div>:
-        null}
+            <Modal text="Employee Created!" modalOn={modalOn} setModalOn={setModalOn}/>
         </main>
     );
  }

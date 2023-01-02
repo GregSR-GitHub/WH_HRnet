@@ -1,4 +1,4 @@
-function saveEmployee() {
+async function saveEmployee() {
     const firstName = document.getElementById('first-name');
     const lastName = document.getElementById('last-name');
     const dateOfBirth = document.getElementById('date-of-birth');
@@ -23,7 +23,7 @@ function saveEmployee() {
     };
     // employees.push(employee);
     // localStorage.setItem('employees', JSON.stringify(employees));
-    console.log(employee)
+    return employee
 }
 
 export default saveEmployee;

@@ -9,7 +9,7 @@
     margin: 10px;
     width: 100%;
     min-width: 200px;
-    max-width: 900px;
+    max-width: 1000px;
     border-radius: 15px;
   }
 
@@ -18,6 +18,10 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+  }
+
+  .employee-table-header{
+    white-space: nowrap;
   }
   
   table {
