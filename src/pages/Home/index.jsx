@@ -7,6 +7,7 @@ import './home.css';
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from "react-redux";
+import SimpleCustomSelect from '@greg-dev/simple-custom-select';
 import saveEmployee from '../../utils/saveEmployee.js';
 import Modal from '../../components/Modal';
 import Datas from '../../datas/states.json'
@@ -31,7 +32,7 @@ import { updateEmployeeList } from '../../store/store';
                 <Link to="/employee-list" className="link-button">View Current Employees</Link>
             </div>
             <h2>Create Employee</h2>
-            <form action="#" id="create-employee" className="create-employee" onSubmit={handleSubmit}>
+            <form action="#" id="create-employee" className="create-employee">
                 <label htmlFor="first-name">First Name</label>
                 <input type="text" id="first-name"  name="first-name" className="create-employee-input"/>
 
@@ -54,24 +55,19 @@ import { updateEmployeeList } from '../../store/store';
                     <input id="city" type="text"  className="create-employee-input"/>
 
                     <label htmlFor="state">State</label>
-                    <select name="state" id="state"  className="create-employee-input">
-                        { Datas.map((element, index) => (<option  key={`${element}-${index}`} value={element.abbreviation}>{element.name}</option>))}
-                    </select>
+                    <SimpleCustomSelect options={Datas} name="state"/>
+                    {/* <select name="state" id="state"  className="create-employee-input">
+                        { Datas.map((element, index) => (<option  key={`${element}-${index}`} value={element.value}>{element.name}</option>))}
+                    </select> */}
 
                     <label htmlFor="zip-code">Zip Code</label>
                     <input id="zip-code" type="number" className="create-employee-input" />
                 </fieldset>
 
                 <label htmlFor="department">Department</label>
-                <select name="department" id="department"  className="create-employee-input">
-                    <option>Sales</option>
-                    <option>Marketing</option>
-                    <option>Engineering</option>
-                    <option>Human Resources</option>
-                    <option>Legal</option>
-                </select>
+                <SimpleCustomSelect options={["Sales", "Marketing", "Engineering", "Human Resources", "Legal"]} name="department"/>
                 <div  className="employee-list-submit">
-                    <button type="submit" className="link-button">Save</button>
+                    <button type="submit" className="link-button"  onClick={handleSubmit}>Save</button>
                     </div>
             </form>
 

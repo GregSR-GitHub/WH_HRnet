@@ -32,9 +32,26 @@
     border-radius: 15px;
 }
 
-.create-employee-input {
+.create-employee-input, .custom-select_wrapper {
     width: 100%;
     height: 30px;
+}
+
+.custom-select_button {
+    padding: 5px 5px;
+    text-align: left;
+}
+
+.custom-select_option {
+    padding: 2px 5px;
+    text-align: left;
+}
+
+
+.custom-select_list {
+    max-height: 200px;
+    overflow: scroll;
+    z-index: 2;
 }
 
 label {
