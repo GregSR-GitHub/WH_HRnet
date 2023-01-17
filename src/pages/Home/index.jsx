@@ -4,12 +4,13 @@
  */
 
 import './home.css';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import SimpleCustomSelect from '@greg-dev/simple-custom-select';
 import saveEmployee from '../../utils/saveEmployee.js';
 import Modal from '../../components/Modal';
+import FormInput from '../../components/FormInput';
 import Datas from '../../datas/states.json'
 import { updateEmployeeList } from '../../store/store';
 
@@ -17,6 +18,7 @@ import { updateEmployeeList } from '../../store/store';
   function Home() {
     const [modalOn, setModalOn] = useState(false);
     const dispatch = useDispatch();
+    
     async function handleSubmit(e) {   
         e.preventDefault();
         const newEmployee = await saveEmployee();
@@ -24,6 +26,12 @@ import { updateEmployeeList } from '../../store/store';
         dispatch(updateEmployeeList(newEmployee));
         setModalOn(true);
         }
+
+        //start-date input show today's date by default
+        useEffect(() => {
+           document.getElementById('start-date').valueAsDate = new Date();
+        }, [])       
+        
 
     return (
         <main>
@@ -33,42 +41,25 @@ import { updateEmployeeList } from '../../store/store';
             </div>
             <h2>Create Employee</h2>
             <form action="#" id="create-employee" className="create-employee">
-                <label htmlFor="first-name">First Name</label>
-                <input type="text" id="first-name"  name="first-name" className="create-employee-input"/>
-
-                <label htmlFor="last-name">Last Name</label>
-                <input type="text" id="last-name" name="last-name"  className="create-employee-input"/>
-
-                <label htmlFor="date-of-birth">Date of Birth</label>
-                <input id="date-of-birth" type="date"  className="create-employee-input"/>
-
-                <label htmlFor="start-date">Start Date</label>
-                <input id="start-date" type="date"  className="create-employee-input"/>
+                <FormInput name="first-name" label="First Name" type="text"/>
+                <FormInput name="last-name" label="Last Name" type="text"/>
+                <FormInput name="date-of-birth" label="Date of Birth" type="date"/>
+                <FormInput name="start-date" label="Start Date" type="date"/>
 
                 <fieldset className="address">
                     <legend>Address</legend>
-
-                    <label htmlFor="street">Street</label>
-                    <input id="street" type="text"  className="create-employee-input"/>
-
-                    <label htmlFor="city">City</label>
-                    <input id="city" type="text"  className="create-employee-input"/>
-
+                    <FormInput name="street" label="Street" type="text"/>
+                    <FormInput name="city" label="City" type="text"/>
                     <label htmlFor="state">State</label>
                     <SimpleCustomSelect options={Datas} name="state"/>
-                    {/* <select name="state" id="state"  className="create-employee-input">
-                        { Datas.map((element, index) => (<option  key={`${element}-${index}`} value={element.value}>{element.name}</option>))}
-                    </select> */}
-
-                    <label htmlFor="zip-code">Zip Code</label>
-                    <input id="zip-code" type="number" className="create-employee-input" />
+                    <FormInput name="zip-code" label="Zip Code" type="number"/>
                 </fieldset>
 
                 <label htmlFor="department">Department</label>
                 <SimpleCustomSelect options={["Sales", "Marketing", "Engineering", "Human Resources", "Legal"]} name="department"/>
                 <div  className="employee-list-submit">
                     <button type="submit" className="link-button"  onClick={handleSubmit}>Save</button>
-                    </div>
+                </div>
             </form>
 
         </div>

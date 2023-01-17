@@ -1,0 +1,11 @@
+.create-employee-input-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.create-employee-input, .custom-select_wrapper {
+    width: 100%;
+    height: 30px;
+}

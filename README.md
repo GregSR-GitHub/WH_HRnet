@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# HRnet Front-End
 
 This project is the React conversion of HRnet app from WealthHealth.
 Bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

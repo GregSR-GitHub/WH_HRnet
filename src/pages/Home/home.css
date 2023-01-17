@@ -32,7 +32,7 @@
     border-radius: 15px;
 }
 
-.create-employee-input, .custom-select_wrapper {
+.custom-select_wrapper {
     width: 100%;
     height: 30px;
 }
